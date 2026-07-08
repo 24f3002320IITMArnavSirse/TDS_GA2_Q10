@@ -8,6 +8,14 @@ from main import ASSIGNED_ORIGIN, RATE_LIMIT, app
 client = TestClient(app)
 
 
+def test_root_health_endpoint_exists():
+    response = client.get("/", headers={"X-Client-Id": "root-health-client"})
+
+    assert response.status_code == 200
+    assert response.json()["status"] == "ok"
+    assert response.json()["ping"] == "/ping"
+
+
 def test_supplied_request_id_is_reused_in_body_and_header():
     response = client.get(
         "/ping",

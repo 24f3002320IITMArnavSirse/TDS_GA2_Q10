@@ -74,6 +74,15 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+async def root():
+    return {
+        "status": "ok",
+        "service": "Middleware Stack Assignment",
+        "ping": "/ping",
+    }
+
+
 @app.get("/ping")
 async def ping(request: Request):
     return {
